@@ -1,20 +1,28 @@
-# ora2pgWorkshop
+![migrate1](Media/migrate1.jpg)
 
-Useful links:
-Full Windows-based workshop: https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/blob/master/Hands-on%20lab/HOL%20step-by-step%20-%20Migrating%20Oracle%20to%20PostgreSQL.md#task-4-install-ora2pg
+# Why Migrating from Oracle to Azure PostgreSQL?
+One of the common reasons to migrate from Oracle to Azure Postgres is compatibility because PostgreSQL PL/PGSQL is highly compatible with Oracle PL/SQL, lowering the migration cost and risk. Azure also offers fully managed services for PostgreSQL (PaaS) to take advantage of all the key pieces that are part of the underlying Azure relational database platform. It provides the same level of reliability across all these platforms.
 
-Tutorial: https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/dms/tutorial-oracle-azure-postgresql-online.md
+In Postgres, you can target your Oracle migrations. If you have Oracle workloads that you want to migrate to Azure, but you don't want to convert to a SQL based solution, Postgres is more compatible with the work in Oracle and with making some more clear migration patterns.
 
-ora2pg image: https://hub.docker.com/r/georgmoser/ora2pg-docker
-
-Oracle image: https://hub.docker.com/r/araczkowski/oracle-apex-ords
-
-HR DDLScript - Import the HR sample: https://www.oracle.com/database/technologies/appdev/datamodeler-samples.html
-
-Examples: https://www.darold.net/confs/ora2pg_the_hard_way.pdf
+# Prerequisites:
 
 
-The workshop was checked against Centos 7.
+# Helpful Links:
+[Full Windows-based workshop](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/blob/master/Hands-on%20lab/HOL%20step-by-step%20-%20Migrating%20Oracle%20to%20PostgreSQL.md#task-4-install-ora2pg)
+
+[Tutorial](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/dms/tutorial-oracle-azure-postgresql-online.md)
+
+[ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
+
+[Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
+
+[HR DDLScript - Import the HR sample](https://www.oracle.com/database/technologies/appdev/datamodeler-samples.html)
+
+[Examples](https://www.darold.net/confs/ora2pg_the_hard_way.pdf)
+
+
+# This lab was developed using centos 7
 
 Setting up ora2pg:
 
