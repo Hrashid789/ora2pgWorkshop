@@ -55,9 +55,9 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
 ### Task 3:
 
-### Task 4:
+### Task 4: Download ora2pg image
 [Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
-### Task 5:
+### Task 5:Download Oracle image
 [Download Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
 ### Task 6:
 
