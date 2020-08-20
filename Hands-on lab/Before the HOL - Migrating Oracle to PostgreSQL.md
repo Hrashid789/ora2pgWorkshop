@@ -6,8 +6,10 @@
     - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
     - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
     - [Task 3: Connect to the Lab VM](#task-3-connect-to-the-lab-vm)
-    - [Task 4: Register the Microsoft DataMigration resource provider](#task-8-register-the-microsoft-datamigration-resource-provider)
-    - [Task 5  (Migrate to PostgreSQL): Create Azure Database Migration Service for an Oracle to PostgreSQL Migration](#task-10-migrate-to-postgresql-create-azure-database-migration-service-for-an-oracle-to-postgresql-migration)
+    - [Task 4: Download ora2pg image](#task-4-download-ora2pg-image)
+    - [Task 5: Download Oracle image](#task-5-download-oracle-image)
+    - [Task 6: Register the Microsoft DataMigration resource provider](#task-6-register-the-microsoft-datamigration-resource-provider)
+    - [Task 7  (Migrate to PostgreSQL): Create Azure Database Migration Service for an Oracle to PostgreSQL Migration](#task-7-migrate-to-postgresql-create-azure-database-migration-service-for-an-oracle-to-postgresql-migration)
 
 # Migrating Oracle to Azure SQL and PostgreSQL before the hands-on lab setup guide
 
@@ -50,3 +52,13 @@ In this task, you will create an Azure resource group for the resources used thr
 In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2019 installed.
 
 1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
+
+### Task 3:
+
+### Task 4:
+[Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
+### Task 5:
+[Download Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
+### Task 6:
+
+### Task 7:
