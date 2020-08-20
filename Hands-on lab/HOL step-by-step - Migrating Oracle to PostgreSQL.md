@@ -1,10 +1,3 @@
-# Before the HOL:
-1 - [Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
-
-2 - [Download Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
-
-
-
 # Helpful Links:
 [Full Windows-based workshop](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/blob/master/Hands-on%20lab/HOL%20step-by-step%20-%20Migrating%20Oracle%20to%20PostgreSQL.md#task-4-install-ora2pg)
 
