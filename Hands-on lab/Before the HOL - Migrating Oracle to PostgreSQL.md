@@ -29,11 +29,11 @@ In this task, you will create an Azure resource group for the resources used thr
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the Azure services list.
 
-    ![Resource groups is highlighted in the Azure services list.](media/azure-services-resource-groups.png "Azure services")
+    ![Resource groups is highlighted in the Azure services list.](/Media/migrate2.jpg "Azure services")
 
 2. On the Resource groups blade, select **+Add**.
 
-    ![+Add is highlighted in the toolbar on Resource groups blade.t](media/resource-groups-add.png "Resource groups")
+    ![+Add is highlighted in the toolbar on Resource groups blade.t](/Media/migrate3.jpg "Resource groups")
 
 3. Enter the following in the Create an empty resource group blade:
 
@@ -41,7 +41,7 @@ In this task, you will create an Azure resource group for the resources used thr
     - **Resource group**: Enter hands-on-lab-SUFFIX.
     - **Region**: Select the region you would like to use for resources in this hands-on lab. Remember this location so you can use it for the other resources you'll provision throughout this lab.
 
-    ![Add Resource group Resource groups is highlighted in the navigation pane of the Azure portal, +Add is highlighted in the Resource groups blade, and "hands-on-labs" is entered into the Resource group name box on the Create an empty resource group blade.](./media/create-resource-group.png "Create resource group")
+    ![Add Resource group Resource groups is highlighted in the navigation pane of the Azure portal, +Add is highlighted in the Resource groups blade, and "hands-on-labs" is entered into the Resource group name box on the Create an empty resource group blade.](/Media/migrate4.jpg "Create resource group")
 
 4. Select **Review + Create**.
 
@@ -52,6 +52,8 @@ In this task, you will create an Azure resource group for the resources used thr
 In this task, you will provision a virtual machine (VM) in Azure. The VM image used will have Visual Studio Community 2019 installed.
 
 1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
+
+  ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](/Media/migrate5.jpg "Create a resource")
 
 ### Task 3:
 
