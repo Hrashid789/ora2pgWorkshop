@@ -1,3 +1,103 @@
+**Contents**
+
+- [Migrating Oracle to PostgreSQL hands-on lab step-by-step](#migratingoracletopostgresql-hands-on-lab-step-by-step)
+  - [Requirements](#requirements)
+  - [Exercise 1: Setup Oracle 11g Express Edition](#exercise-1-setup-oracle-11g-express-edition)
+    - [Task 1: Configure Oracle XE](#task-1-configure-oracle-xe)
+    - [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
+    - [Task 3: Install dbForge Fusion tool](#task-3-install-dbforge-fusion-tool)
+    - [Task 4: Create the Northwind database in Oracle 11g XE](#task-4-create-the-northwind-database-in-oracle-11g-xe)
+  - [Exercise 2: Assess the Oracle 11g Database before Migrating to PostgreSQL](#exercise-2-assess-the-oracle-11g-database-before-migrating-to-postgresql)
+    - [Task 1: Update Statistics and Identify Invalid Objects](#task-1-update-statistics-and-identify-invalid-objects)
+  - [Exercise 3: Prepare to Migrate the Oracle database to PostgreSQL](#exercise-3-prepare-to-migrate-the-oracle-database-to-postgresql)
+    - [Task 1: Create Azure Resources](#task-1-create-azure-resources)
+    - [Task 2: Configure the PostgreSQL server instance](#task-2-configure-the-postgresql-server-instance)
+    - [Task 3: Install pgAdmin on the LabVM](#task-3-install-pgadmin-on-the-labvm)
+    - [Task 4: Install ora2pg](#task-4-install-ora2pg)
+    - [Task 5: Prepare the PostgreSQL instance using pgAdmin](#task-5-prepare-the-postgresql-instance-using-pgadmin)
+    - [Task 6: Create an ora2pg project structure](#task-6-create-an-ora2pg-project-structure)
+    - [Task 7: Create a migration report](#task-7-create-a-migration-report)
+  - [After the hands-on lab](#after-the-hands-on-lab)
+    - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
+
+# Migrating Oracle to PostgreSQL hands-on lab step-by-step
+
+## Requirements
+
+- Microsoft Azure subscription must be pay-as-you-go or MSDN.
+  - Trial subscriptions will not work.
+
+## Exercise 3: Prepare to Migrate the Oracle database to PostgreSQL
+
+Duration: 60 minutes
+
+In this exercise, you will configure Azure Database for PostgreSQL and Azure App Service, install and configure ora2pg and pgAdmin, and create an assessment report that outlines the difficulty of the migration process.
+
+### Task 1: Create Azure Resources
+
+We need to create a PostgreSQL instance and an App Service to host our application. Visual Studio integrates well with Microsoft Azure, simplifying application deployment.
+
+1. Just as you configured resources in **Before the HOL**, you will need to navigate to the **New** page accessed by selecting **+ Create a resource**. Then, navigate to **Databases** under the **Azure Marketplace** section. Select **Azure Database for PostgreSQL**.
+
+    ![Navigating Azure Marketplace to Azure Database for Postgre SQL, which has been highlighted.](./media/creating-new-postgresql-db.png "Azure Database for Postgre SQL")
+
+2. There are two deployment options: **Single Server** and **Hyperscale (Citus)**. Single Server is best suited for traditional transactional workloads whereas Hyperscale is best suited for ultra-high-performance, multi-tenant applications. For our simple application, we will be utilizing a single server for our database.
+
+    ![Screenshot of choosing the correct single server option.](./media/single-server-selection.PNG "Single server")
+
+3. Create a new Azure Database for PostgreSQL resource. Use the following configuration values:
+
+   - **Resource group**: (same as Lab VM)
+   - **Server name**: Enter a unique server name.
+   - **Version**: 11
+   - **Administrator username**: solldba
+   - **Password**: (secure password)
+
+    Select **Review + create** button once you are ready.
+
+    ![Configuring the instance details.](./media/postgresql-config.PNG "Project Details window with pertinent details")
+
+### Task 2: Configure the PostgreSQL server instance
+
+In this task, we will be modifying the PostgreSQL instance to fit our needs.
+
+1. Storage Auto-growth is a feature in which Azure will add more storage automatically when required. We do not need it for our purposes so we will need to disable it. To do this, locate the PostgreSQL instance you created. Under the **Settings** tab, select **Pricing tier**.
+
+    ![Changing the pricing tier in PostGre SQL instance.](./media/changing-tier.PNG "Pricing tier")
+
+2. Find the **Storage Auto-growth** switch, and disable the feature. Select **OK** at the bottom of the page to save your change.
+
+    ![Disabling storage auto-growth feature.](./media/disabling-auto-grow.PNG  "Storage auto-growth toggled to no")
+
+3. Now, we need to implement firewall rules for the PostgreSQL database so we can access it. Locate the **Connection security** selector under the **Settings** tab.
+
+    ![Configuring the Connection Security settings for the database.](./media/entering-connection-settings.png "Connection security highlighted")
+
+4. We will add an access rule. Since we are storing insecure test data, we can open the 0.0.0.0 to 255.255.255.255 range (all IPv4 addresses). Azure makes this option available. Press the **Save** button at the top of the page once you are ready.
+
+    ![Adding IP addresses as an Access Rule](./media/adding-open-ip-address-range.png "IP Addresses highlighted")
+
+    >**Note**: Do not use this type of rule for databases with sensitive data or in a production environment. You are allowing access from any IP address.
+
+### Task 3: Install pgAdmin on the LabVM
+
+PgAdmin greatly simplifies database administration and configuration tasks by providing an intuitive GUI. Hence, we will be using it to create a new application user and test the migration.
+
+1. You will need to navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain the latest version of pgAdmin 4, which, at the time of writing, is **v4.22**. Select the link to the installer, as shown below.
+
+    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./media/installing-pgadmin.PNG "pgAdmin 4 v4.22")
+
+2. Download the **pgadmin4-4.22-x86.exe** file, **not** the one with the **.asc** extension.
+
+    ![Screenshot shows the correct installer to be used.](./media/correct-pgadmin-installer.png "pgAdmin version to be installed, pgadmin4-4.22-x86.exe")
+
+3. Once the installer launches, accept all defaults. Complete the installation steps.
+
+4. The pgAdmin utility will open automatically in the browser. To open manually, use the Windows Search utility. Type `pgAdmin`.
+
+   ![The screenshot shows pgAdmin in the Windows Search text box.](./media/2020-07-04-12-45-20.png "Find pgAdmin manually in Windows Search bar")
+
+5. PgAdmin will prompt you to set a password to govern access to database credentials. Enter a password. Confirm your choice. For now, our configuration of pgAdmin is complete.
 # Helpful Links:
 [Full Windows-based workshop](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/blob/master/Hands-on%20lab/HOL%20step-by-step%20-%20Migrating%20Oracle%20to%20PostgreSQL.md#task-4-install-ora2pg)
 
