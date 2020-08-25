@@ -59,8 +59,102 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
 ### Task 4: Download ora2pg image
 [Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
+
+1. Setting up ora2pg:
+
+       sudo -i
+2. From root user run the following commands:
+
+        yum update -y
+        yum install docker -y
+
+        systemctl start docker
+        systemctl status docker
+
+         docker pull georgmoser/ora2pg-docker
+
+        mkdir /data
+      > **Note**: You may receive an error "Installation of docker fails on CentOS 8 with Error – package containerd.io-1.2.10-3.2.el7.x86_64 is excluded" to overcome that you will need to run the below command:
+              
+               yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+
+3. Get inside container:
+
+        docker run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
+
+        ora2pg --version
+
+        apt-get update -y
+
+        apt-get install vim
+
 ### Task 5:Download Oracle image
 [Download Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
+
+There are two ways of doing this 1) Own docker image, with custom password 2) Get the prebuilt image from docker hub. In this lab, we will use the option 2.
+
+1. Installation:
+
+        docker pull araczkowski/oracle-apex-ords
+2. Run the container based on prebuild image from docker with 8080, 1521, 22 ports opened:
+
+         docker run -d --name <own-container-name> -p 49160:22 -p 8080:8080 -p 1521:1521 araczkowski/oracle-apex-ords    
+         
+3. Connect database with the following settings:
+
+        hostname: localhost
+        port: 1521
+        sid: xe
+        username: system
+        password: secret
+4. Once you login you will get an error that the password will exprire in 7 days so you have to change the password:
+
+        alter user system identified by secret;
 ### Task 6:
 
+In this task, you will register the `Microsoft.DataMigration` resource provider with your subscription in Azure.
+
+1. In the [Azure portal](https://portal.azure.com/), navigate to the Home page and then select **Subscriptions** from the Navigate list found midway down the page.
+
+    ![Subscriptions is highlighted in the Navigate menu.](media/azure-navigate-subscriptions.png "Navigate menu")
+
+2. Select the subscription you are using for this hands-on lab from the list, select **Resource providers**, enter "migration" into the filter box, and then select **Register** next to **Microsoft.DataMigration**.
+
+    ![The Subscription blade is displayed, with Resource providers selected and highlighted under Settings. On the Resource providers blade, migration is entered into the filter box, and Register is highlighted next to Microsoft.DataMigration.](media/azure-portal-subscriptions-resource-providers-register-microsoft-datamigration.png "Resource provider registration")
+
 ### Task 7:
+In this task, you will provision an instance of the Azure Database Migration Service (DMS) for use with an *online* Oracle to PostgreSQL migration. This requires that we implement the **Premium** tier.
+
+1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
+
+    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
+
+2. Enter "database migration" into the Search the Marketplace box, select **Azure Database Migration Service** from the results, and select **Create**.
+
+    !["Database migration" is entered into the Search the Marketplace box. Azure Database Migration Service is selected in the results.](media/create-resource-azure-database-migration-service.png "Create Azure Database Migration Service")
+
+3. On the Create Migration Service blade, enter the following:
+
+    - **Subscription**: Select the subscription you are using for this hands-on lab.
+    - **Resource Group**: Select the hands-on-lab-SUFFIX resource group from the list of existing resource groups.
+    - **Migration service name**: Enter **wwi-dms-SUFFIX**.
+    - **Location**: Select the location you are using for resources in this hands-on lab.
+    - **Pricing tier**: Select Premium: 4 vCores (you will need to select *Configure tier* to view this option).
+
+    > **Note**: If you see the message `Your subscription doesn't have proper access to Microsoft.DataMigration`, refresh the browser window before proceeding. If the message persists, verify you successfully registered the resource provider, and then you can safely ignore this message.
+
+   ![The Create Migration Service blade is displayed, with the values specified above entered into the appropriate fields.](media/create-premium-migration-service.png "Create Migration Service")
+
+4. Select **Next: Networking**.
+
+5. On the Network tab, select the **hands-on-lab-SUFFIX-vnet/default** virtual network. This will place the DMS instance into the same VNet as your SQL Server and Lab VMs.
+
+    ![The hands-on-lab-SUFFIX-vnet/default is selected in the list of available virtual networks.](media/create-migration-service-networking-tab.png "Create migration service")
+
+6. Select **Review + create**.
+  
+7. Select **Create**.
+
+>**Note**: It can take 15 minutes to deploy the Azure Data Migration Service.
+
+You should follow all steps provided *before* performing the Hands-on lab.
