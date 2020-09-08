@@ -39,7 +39,7 @@ We need to create a PostgreSQL instance and an App Service to host our applicati
 
 1. Just as you configured resources in **Before the HOL**, you will need to navigate to the **New** page accessed by selecting **+ Create a resource**. Then, navigate to **Databases** under the **Azure Marketplace** section. Select **Azure Database for PostgreSQL**.
 
-    ![Navigating Azure Marketplace to Azure Database for Postgre SQL, which has been highlighted.](./media/creating-new-postgresql-db.png "Azure Database for Postgre SQL")
+    ![Navigating Azure Marketplace to Azure Database for PostgreSQL, which has been highlighted.](./media/creating-new-postgresql-db.png "Azure Database for PostgreSQL")
 
 2. There are two deployment options: **Single Server** and **Hyperscale (Citus)**. Single Server is best suited for traditional transactional workloads whereas Hyperscale is best suited for ultra-high-performance, multi-tenant applications. For our simple application, we will be utilizing a single server for our database.
 
@@ -63,7 +63,7 @@ In this task, we will be modifying the PostgreSQL instance to fit our needs.
 
 1. Storage Auto-growth is a feature in which Azure will add more storage automatically when required. We do not need it for our purposes so we will need to disable it. To do this, locate the PostgreSQL instance you created. Under the **Settings** tab, select **Pricing tier**.
 
-    ![Changing the pricing tier in PostGre SQL instance.](./media/changing-tier.PNG "Pricing tier")
+    ![Changing the pricing tier in PostgreSQL instance.](./media/changing-tier.PNG "Pricing tier")
 
 2. Find the **Storage Auto-growth** switch, and disable the feature. Select **OK** at the bottom of the page to save your change.
 
@@ -112,7 +112,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 [Examples](https://www.darold.net/confs/ora2pg_the_hard_way.pdf)
 
 
-# This lab was developed using centos 7
+# This lab was developed using CentOS 7
 
 Setting up ora2pg:
 
