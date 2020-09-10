@@ -55,6 +55,45 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
   ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](/Media/migrate5.jpg "Create a resource")
 
+2. Select "Compute" under Azure Marketplace and then select "Virtual Machines"
+
+![create a virtual machine](/Media/migrate6.jpg)
+
+3. On the Create a virtual machine Basics tab, set the following configuration:
+
+- Project Details:
+
+        - **Subscription**: Select the subscription you are using for this hands-on lab.
+        - **Resource Group**: Select the hands-on-lab-SUFFIX resource group from the list of existing resource groups.
+
+    - Instance Details:
+
+        - **Virtual machine name**: Enter LabVM.
+        - **Region**: Select the region you are using for resources in this hands-on lab.
+        - **Availability options**: Select no infrastructure redundancy required.
+        - **Image**: Centos-based 8.2 - Gen1
+        - **Size**: Accept the default size, Standard D2 v2.
+        
+ - Administrator Account:
+        - **Authentication type**: Password
+        - **Username**: demouser
+        - **Password**: Password.1!!
+
+    - Inbound Port Rules:
+
+        - **Public inbound ports**: Choose Allow selected ports.
+        - **Select inbound ports**: Select SSH (22) in the list.
+        
+        ![Screenshot of the Basics tab, with fields set to the previously mentioned settings.](/Media/migrate7.jpg "Create a virtual machine Basics tab")
+
+4. Select **Review + create**.
+
+5. On the **Review + create** tab, ensure the Validation passed message is displayed, and then select **Create** to provision the virtual machine.
+
+    ![The Review + create tab is displayed, with a Validation passed message.](/Media/migrate8.jpg "Create a virtual machine Review + create tab")
+
+6. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the lab VM to provision.
+
 ### Task 3:
 
 ### Task 4: Download ora2pg image
