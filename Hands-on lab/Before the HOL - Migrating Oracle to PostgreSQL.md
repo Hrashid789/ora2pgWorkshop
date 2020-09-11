@@ -155,22 +155,22 @@ In this task, you will register the `Microsoft.DataMigration` resource provider 
 
 1. In the [Azure portal](https://portal.azure.com/), navigate to the Home page and then select **Subscriptions** from the Navigate list found midway down the page.
 
-    ![Subscriptions is highlighted in the Navigate menu.](media/azure-navigate-subscriptions.png "Navigate menu")
+    ![Subscriptions is highlighted in the Navigate menu.](/Media/migrate9.jpg "Navigate menu")
 
 2. Select the subscription you are using for this hands-on lab from the list, select **Resource providers**, enter "migration" into the filter box, and then select **Register** next to **Microsoft.DataMigration**.
 
-    ![The Subscription blade is displayed, with Resource providers selected and highlighted under Settings. On the Resource providers blade, migration is entered into the filter box, and Register is highlighted next to Microsoft.DataMigration.](media/azure-portal-subscriptions-resource-providers-register-microsoft-datamigration.png "Resource provider registration")
+    ![The Subscription blade is displayed, with Resource providers selected and highlighted under Settings. On the Resource providers blade, migration is entered into the filter box, and Register is highlighted next to Microsoft.DataMigration.](/Media/migrate10.png "Resource provider registration")
 
 ### Task 7:
 In this task, you will provision an instance of the Azure Database Migration Service (DMS) for use with an *online* Oracle to PostgreSQL migration. This requires that we implement the **Premium** tier.
 
 1. In the [Azure portal](https://portal.azure.com/), select the **Show portal menu** icon and then select **+Create a resource** from the menu.
 
-    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](media/create-a-resource.png "Create a resource")
+    ![The Show portal menu icon is highlighted and the portal menu is displayed. Create a resource is highlighted in the portal menu.](/Media/migrate11.png "Create a resource")
 
 2. Enter "database migration" into the Search the Marketplace box, select **Azure Database Migration Service** from the results, and select **Create**.
 
-    !["Database migration" is entered into the Search the Marketplace box. Azure Database Migration Service is selected in the results.](media/create-resource-azure-database-migration-service.png "Create Azure Database Migration Service")
+    !["Database migration" is entered into the Search the Marketplace box. Azure Database Migration Service is selected in the results.](/Media/migrate12.png "Create Azure Database Migration Service")
 
 3. On the Create Migration Service blade, enter the following:
 
@@ -182,13 +182,13 @@ In this task, you will provision an instance of the Azure Database Migration Ser
 
     > **Note**: If you see the message `Your subscription doesn't have proper access to Microsoft.DataMigration`, refresh the browser window before proceeding. If the message persists, verify you successfully registered the resource provider, and then you can safely ignore this message.
 
-   ![The Create Migration Service blade is displayed, with the values specified above entered into the appropriate fields.](media/create-premium-migration-service.png "Create Migration Service")
+   ![The Create Migration Service blade is displayed, with the values specified above entered into the appropriate fields.](/Media/migrate13.png "Create Migration Service")
 
 4. Select **Next: Networking**.
 
 5. On the Network tab, select the **hands-on-lab-SUFFIX-vnet/default** virtual network. This will place the DMS instance into the same VNet as your SQL Server and Lab VMs.
 
-    ![The hands-on-lab-SUFFIX-vnet/default is selected in the list of available virtual networks.](media/create-migration-service-networking-tab.png "Create migration service")
+    ![The hands-on-lab-SUFFIX-vnet/default is selected in the list of available virtual networks.](/Media/migrate14.png "Create migration service")
 
 6. Select **Review + create**.
   
