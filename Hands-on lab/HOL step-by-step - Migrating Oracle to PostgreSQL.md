@@ -44,7 +44,7 @@ We need to create a PostgreSQL instance and an App Service to host our applicati
 
 2. There are two deployment options: **Single Server** and **Hyperscale (Citus)**. Single Server is best suited for traditional transactional workloads whereas Hyperscale is best suited for ultra-high-performance, multi-tenant applications. For our simple application, we will be utilizing a single server for our database.
 
-    ![Screenshot of choosing the correct single server option.](/Media/migrate16.png "Single server")
+    ![Screenshot of choosing the correct single server option.](/Media/migrate16.PNG "Single server")
 
 3. Create a new Azure Database for PostgreSQL resource. Use the following configuration values:
 
@@ -56,7 +56,7 @@ We need to create a PostgreSQL instance and an App Service to host our applicati
 
     Select **Review + create** button once you are ready.
 
-    ![Configuring the instance details.](/Media/migrate17.png "Project Details window with pertinent details")
+    ![Configuring the instance details.](/Media/migrate17.PNG "Project Details window with pertinent details")
 
 ### Task 2: Configure the PostgreSQL server instance
 
@@ -64,11 +64,11 @@ In this task, we will be modifying the PostgreSQL instance to fit our needs.
 
 1. Storage Auto-growth is a feature in which Azure will add more storage automatically when required. We do not need it for our purposes so we will need to disable it. To do this, locate the PostgreSQL instance you created. Under the **Settings** tab, select **Pricing tier**.
 
-    ![Changing the pricing tier in PostgreSQL instance.](./Media/migrate18.png "Pricing tier")
+    ![Changing the pricing tier in PostgreSQL instance.](/Media/migrate18.PNG "Pricing tier")
 
 2. Find the **Storage Auto-growth** switch, and disable the feature. Select **OK** at the bottom of the page to save your change.
 
-    ![Disabling storage auto-growth feature.](/Media/migrate19.png  "Storage auto-growth toggled to no")
+    ![Disabling storage auto-growth feature.](/Media/migrate19.PNG  "Storage auto-growth toggled to no")
 
 3. Now, we need to implement firewall rules for the PostgreSQL database so we can access it. Locate the **Connection security** selector under the **Settings** tab.
 
@@ -86,7 +86,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
 1. You will need to navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain the latest version of pgAdmin 4, which, at the time of writing, is **v4.22**. Select the link to the installer, as shown below.
 
-    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](./Media/migrate22.png "pgAdmin 4 v4.22")
+    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](/Media/migrate22.PNG "pgAdmin 4 v4.22")
 
 2. Download the **pgadmin4-4.22-x86.exe** file, **not** the one with the **.asc** extension.
 
@@ -110,7 +110,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
 2. Navigate to the location mentioned above and right-click `installora2pg.ps1`. Then, select **Run with PowerShell**.
 
-    ![Screenshot to show process to install ora2pg.](./Media/migrate25.png "Installing ora2pg")
+    ![Screenshot to show process to install ora2pg.](/Media/migrate25.png "Installing ora2pg")
 
 3. Install the ora2pg utility dependencies.
 
@@ -118,11 +118,11 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
    - Install the Oracle client library and SDK. To do this, you will first need to navigate to [Oracle Downloads](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html). Then, scroll to **Version 12.2.X**. Select the installer for the **Basic Package**.
    - Download the zip file.
 
-    ![Screenshot to show downloading the basic package.](/Media/migrate26.png "Basic package download")
+    ![Screenshot to show downloading the basic package.](/Media/migrate26.PNG "Basic package download")
 
 4. On the same Oracle link as above under the **version** section, locate the **SDK Package** installer under the **Development and Runtime - optional packages** section. Keep the zipped file in the Downloads directory.
 
-    ![Screenshot to show the SDK Package download.](/Media/migrate27.png "SDK package download")
+    ![Screenshot to show the SDK Package download.](/Media/migrate27.PNG "SDK package download")
 
 5. Navigate to the directory where the zipped instant client packages reside.
 
@@ -131,7 +131,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
     - Select **Extract**.
     - Repeat this process for the zipped SDK.
 
-    ![Screenshot to show the process of installing client and SDK Packages.](/Media/migrate28.png "Client and SDK package downloads")
+    ![Screenshot to show the process of installing client and SDK Packages.](/Media/migrate28.PNG "Client and SDK package downloads")
 
 6. Return to the PowerShell script.
 
@@ -158,7 +158,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
     - Enter **C:\instantclient_12_2**.
     - Repeat this process, but enter **%%PATH%%** instead.
 
-    ![Screenshot showing path variable configuration.](./media/path-variable-configuration.png "Path variable configuration")
+    ![Screenshot showing path variable configuration.](/Meida/migrate31.png "Path variable configuration")
 # Helpful Links:
 [Full Windows-based workshop](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/blob/master/Hands-on%20lab/HOL%20step-by-step%20-%20Migrating%20Oracle%20to%20PostgreSQL.md#task-4-install-ora2pg)
 
