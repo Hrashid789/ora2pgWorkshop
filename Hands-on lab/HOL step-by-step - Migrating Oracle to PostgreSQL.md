@@ -1,18 +1,13 @@
 **Contents**
-
 - [Migrating Oracle to PostgreSQL hands-on lab step-by-step](#migratingoracletopostgresql-hands-on-lab-step-by-step)
   - [Requirements](#requirements)
   - [Exercise 1: Setup Oracle 11g Express Edition](#exercise-1-setup-oracle-11g-express-edition)
-    - [Task 1: Configure Oracle XE](#task-1-configure-oracle-xe)
-    - [Task 2: Install Oracle Data Access components](#task-2-install-oracle-data-access-components)
-    - [Task 3: Install dbForge Fusion tool](#task-3-install-dbforge-fusion-tool)
-    - [Task 4: Create the Northwind database in Oracle 11g XE](#task-4-create-the-northwind-database-in-oracle-11g-xe)
-  - [Exercise 2: Assess the Oracle 11g Database before Migrating to PostgreSQL](#exercise-2-assess-the-oracle-11g-database-before-migrating-to-postgresql)
-    - [Task 1: Update Statistics and Identify Invalid Objects](#task-1-update-statistics-and-identify-invalid-objects)
-  - [Exercise 3: Prepare to Migrate the Oracle database to PostgreSQL](#exercise-3-prepare-to-migrate-the-oracle-database-to-postgresql)
+    - [Task 1: Download ora2pg image](#task-1-download-ora2pg-image)
+    - [Task 2: Download oracle image](#task-2-download-oracle-image)
+  - [Exercise 2: Prepare to Migrate the Oracle database to PostgreSQL](#exercise-3-prepare-to-migrate-the-oracle-database-to-postgresql)
     - [Task 1: Create Azure Resources](#task-1-create-azure-resources)
     - [Task 2: Configure the PostgreSQL server instance](#task-2-configure-the-postgresql-server-instance)
-    - [Task 3: Install pgAdmin on the LabVM](#task-3-install-pgadmin-on-the-labvm)
+    - [Task 3: Install pgAdmin](#task-3-install-pgadmin)
     - [Task 4: Install ora2pg](#task-4-install-ora2pg)
     - [Task 5: Prepare the PostgreSQL instance using pgAdmin](#task-5-prepare-the-postgresql-instance-using-pgadmin)
     - [Task 6: Create an ora2pg project structure](#task-6-create-an-ora2pg-project-structure)
@@ -27,10 +22,64 @@
 
 - Microsoft Azure subscription must be pay-as-you-go or MSDN.
   - Trial subscriptions will not work.
+## Exercise 1: Setup Oracle 11g Express Edition
 
-## Exercise 3: Prepare to Migrate the Oracle database to PostgreSQL
+### Task 1: Download ora2pg image
 
-Duration: 60 minutes
+[Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
+
+1. Setting up ora2pg:
+
+       sudo -i
+2. From root user run the following commands:
+
+        yum update -y
+        yum install docker -y
+
+        systemctl start docker
+        systemctl status docker
+
+         docker pull georgmoser/ora2pg-docker
+
+        mkdir /data
+      > **Note**: You may receive an error "Installation of docker fails on CentOS 8 with Error – package containerd.io-1.2.10-3.2.el7.x86_64 is excluded" to overcome that you will need to run the below command:
+              
+               yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+
+3. Get inside container:
+
+        docker run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
+
+        ora2pg --version
+
+        apt-get update -y
+
+        apt-get install vim
+        
+### Task 2: Download oracle image
+[Download Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
+
+There are two ways of doing this 1) Own docker image, with custom password 2) Get the prebuilt image from docker hub. In this lab, we will use the option 2.
+
+1. Installation:
+
+        docker pull araczkowski/oracle-apex-ords
+2. Run the container based on prebuild image from docker with 8080, 1521, 22 ports opened:
+
+         docker run -d --name <own-container-name> -p 49160:22 -p 8080:8080 -p 1521:1521 araczkowski/oracle-apex-ords    
+         
+3. Connect database with the following settings:
+
+        hostname: localhost
+        port: 1521
+        sid: xe
+        username: system
+        password: secret
+4. Once you login you will get an error that the password will exprire in 7 days so you have to change the password:
+
+        alter user system identified by secret;
+
+## Exercise 2: Prepare to Migrate the Oracle database to PostgreSQL
 
 In this exercise, you will configure Azure Database for PostgreSQL and Azure App Service, install and configure ora2pg and pgAdmin, and create an assessment report that outlines the difficulty of the migration process.
 
