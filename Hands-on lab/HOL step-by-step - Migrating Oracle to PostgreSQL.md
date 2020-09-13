@@ -11,8 +11,7 @@
     - [Task 4: Install ora2pg](#task-4-install-ora2pg)
     - [Task 5: Prepare the PostgreSQL instance using pgAdmin](#task-5-prepare-the-postgresql-instance-using-pgadmin)
     - [Task 6: Create an ora2pg project structure](#task-6-create-an-ora2pg-project-structure)
-    - [Task 7: Create a migration report](#task-7-create-a-migration-report)
-    
+    - [Task 7: Create a migration report](#task-7-create-a-migration-report) 
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
@@ -78,6 +77,14 @@ There are two ways of doing this 1) Own docker image, with custom password 2) Ge
 4. Once you login you will get an error that the password will exprire in 7 days so you have to change the password:
 
         alter user system identified by secret;
+
+5. Create a migration project:
+
+        ora2pg --project_base /data --init_project myproject
+        
+6. Now, change the ORACLE_DSN project:
+
+        vi /data/myproject/config/ora2pg.conf
 
 ## Exercise 2: Prepare to Migrate the Oracle database to PostgreSQL
 
