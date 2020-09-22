@@ -1,4 +1,4 @@
-# Migrating Oracle to Azure SQL and PostgreSQL
+# Migrating Oracle to PostgreSQL
 ![migrate1](Media/migrate1.jpg)
 
 # Why Migrating from Oracle to Azure PostgreSQL?
