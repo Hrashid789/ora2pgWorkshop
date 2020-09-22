@@ -9,9 +9,16 @@
     - [Task 2: Configure the PostgreSQL server instance](#task-2-configure-the-postgresql-server-instance)
     - [Task 3: Install pgAdmin](#task-3-install-pgadmin)
     - [Task 4: Install ora2pg](#task-4-install-ora2pg)
-    - [Task 5: Prepare the PostgreSQL instance using pgAdmin](#task-5-prepare-the-postgresql-instance-using-pgadmin)
+    - [Task 5: Prepare the PostgreSQL instance](#task-5-prepare-the-postgresql-instance)
     - [Task 6: Create an ora2pg project structure](#task-6-create-an-ora2pg-project-structure)
     - [Task 7: Create a migration report](#task-7-create-a-migration-report) 
+  - [Exercise 3: Migrate the Database](#exercise-4-migrate-the-database)
+    - [Task 1: Migrate the basic database table schema using ora2pg](#task-1-migrate-the-basic-database-table-schema-using-ora2pg)
+    - [Task 2: Use Azure Database Migration Service to migrate table data](#task-2-use-azure-database-migration-service-to-migrate-table-data)
+    - [Task 3: Finishing the table schema migration](#task-3-finishing-the-table-schema-migration)
+    - [Task 4: Migrate Views](#task-4-migrate-views)
+    - [Task 5: Migrate the Stored Procedure](#task-5-migrate-the-stored-procedure)
+    - [Task 6: Create new Entity Data Models and update the application on the Lab VM](#task-6-create-new-entity-data-models-and-update-the-application-on-the-lab-vm)
   - [After the hands-on lab](#after-the-hands-on-lab)
     - [Task 1: Delete the resource group](#task-1-delete-the-resource-group)
 
@@ -215,6 +222,60 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
     - Repeat this process, but enter **%%PATH%%** instead.
 
     ![Screenshot showing path variable configuration.](/Meida/migrate31.png "Path variable configuration")
+    
+    
+### Task 5: Prepare the PostgreSQL instance
+
+In this task, we will create the vi file in the linux server, create a PostgreSQL database and download the HR DDL scripts
+
+1. Create a new file
+
+        vi .pg_azure
+
+2. Add the following parameters.
+
+        export PGDATABASE=ORA2PG
+        export PGHOST=HOSTNAME.postgres.database.azure.com
+        export PGUSER=user@hostname
+        export PGPASSWORD=password
+        export PGSSLMODE=require.
+
+3. ![Download the HR DDL scripts](https://www.oracle.com/technetwork/developer-tools/datamodeler/hr-30-ddl-246035.zip)
+
+4. Create Database
+
+        psql postgres
+        createdb ora2pg
+        psql
+        psql -f schema/tables/table.sql
+        psql -f schema/sequences/sequence.sql
+        psql -f schema/views/view.sql 
+        psql -f schema/procedures/procedure.sql
+        psql -f schema/triggers/trigger.sql
+        
+ >**Note**: If you get an error (SELECT COUNT(*) FROM v$archived_log;) that there are no archive log run this command in oracle (ALTER SYSTEM ARCHIVE LOG CURRENT)
+ 
+ ### Task 6: Create an ora2pg project structure
+ 
+ **Ora2pg** allows database objects to be exported in multiple files so that is simple to organize and review changes. In this task, you will create the project structure that will make it easy to do this.  
+ 
+### Task 7: Create a migration report
+
+The migration report tells us the "man-hours" required to fully migrate to our application and components. The report will provide the user with a relative complexity value. In this task, we will retrieve the migration report for our migration.
+
+## Exercise 3: Migrate the Database and Application
+
+In this exercise, we will begin the migration of the database and the application. This includes migrating database objects, the data, application code, and finally, deploying to Azure App Service.
+
+### Task 1: Migrate the basic database table schema using ora2pg
+
+In this task, we will migrate the database table schema, using ora2pg and psql, which is a command-line utility that makes it easy to run SQL files against the database.
+
+1. Exercise 3 covered planning and assessment steps.  To start the database migration, DDL statements must be created for all valid Oracle objects.
+
+    >**Note**: In almost all migration scenarios, it is advised that table, index, and constraint schemas are kept in separate files. For data migration performance reasons, constraints should be applied to the target database only after tables are created and data copied. To enable this feature, open **config\ora2pg.conf** file. Set **FILE_PER_CONSTRAINT**, **FILE_PER_INDEX**, **FILE_PER_FKEYS**, and **FILE_PER_TABLE** to 1.
+
+
 # Helpful Links:
 [Full Windows-based workshop](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/blob/master/Hands-on%20lab/HOL%20step-by-step%20-%20Migrating%20Oracle%20to%20PostgreSQL.md#task-4-install-ora2pg)
 
