@@ -263,7 +263,7 @@ In this task, we will create the vi file in the linux server, create a PostgreSQ
 
 The migration report tells us the "man-hours" required to fully migrate to our application and components. The report will provide the user with a relative complexity value. In this task, we will retrieve the migration report for our migration.
 
-## Exercise 3: Migrate the Database and Application
+## Exercise 3: Migrate the Database
 
 In this exercise, we will begin the migration of the database and the application. This includes migrating database objects, the data, application code, and finally, deploying to Azure App Service.
 
