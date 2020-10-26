@@ -3,7 +3,7 @@
   - [Requirements](#requirements)
   - [Exercise 1: Setup Oracle 11g Express Edition](#exercise-1-setup-oracle-11g-express-edition)
     - [Task 1: Download ora2pg image](#task-1-download-ora2pg-image)
-    - [Task 2: Download oracle image](#task-2-download-oracle-image)
+    - [Task 2: Setup Oracle](#task-2-download-oracle-image)
   - [Exercise 2: Prepare to Migrate the Oracle database to PostgreSQL](#exercise-3-prepare-to-migrate-the-oracle-database-to-postgresql)
     - [Task 1: Create Azure Resources](#task-1-create-azure-resources)
     - [Task 2: Configure the PostgreSQL server instance](#task-2-configure-the-postgresql-server-instance)
@@ -32,7 +32,7 @@
 
 ### Task 1: Download ora2pg image
 
-[Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
+[ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
 
 1. Connect to your Lab VM. 
 
@@ -47,14 +47,23 @@
         podman pull georgmoser/ora2pg-docker
 
         mkdir /data
+        
+4. Get inside container:
+
+        docker run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
+        
+5. Create a migration project:
+
+        ora2pg --project_base /data --init_project myproject
+        
 
         
-### Task 2: Download oracle image
-[Download Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
+### Task 2: Setup Oracle
+[Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
 
 There are two ways of doing this 1) Own docker image, with custom password 2) Get the prebuilt image from docker hub. In this lab, we will use the option 2.
 
-1. Installation:
+1. Download the image:
 
         podman pull araczkowski/oracle-apex-ords
 2. Run the container based on prebuild image from docker with 8080, 1521, 22 ports opened:
@@ -69,26 +78,33 @@ There are two ways of doing this 1) Own docker image, with custom password 2) Ge
 
         ip a
         
-![Checking ip of Oracle VM.](/Media/OracleIP.png "IPA")
+![Checking ip of Oracle VM.](/Media/OracleIP.png "ip a")
 
 Connect database with the following settings:
 
-        hostname: localhost
+        hostname: <Output of ip a command>
         port: 1521
         sid: xe
         username: system
         password: secret
-4. Once you login you will get an error that the password will exprire in 7 days so you have to change the password:
-
-        alter user system identified by secret;
-
-5. Create a migration project:
-
-        ora2pg --project_base /data --init_project myproject
         
-6. Now, change the ORACLE_DSN project:
+5. Log out of the Oracle VM and change ORACLE_DSN in ora2pg.conf file:
 
         vi /data/myproject/config/ora2pg.conf
+        
+![Changing Oracle DSN.](/Media/OracleConnection.png "Changing Oracle DSN")
+
+6. Check if you are able to connect to Oracle database from ora2pg tool:
+
+![Test Connection.](/Media/OracleConnectTest.png "Test connection")       
+        
+7. Optionally you might want to change the password for system user since the current one will expire in 7 days:
+
+        alter user system identified by secret;
+        
+
+
+        
 
 ## Exercise 2: Prepare to Migrate the Oracle database to PostgreSQL
 
