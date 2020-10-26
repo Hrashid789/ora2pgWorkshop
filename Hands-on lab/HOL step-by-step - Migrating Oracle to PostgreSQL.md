@@ -61,7 +61,15 @@ There are two ways of doing this 1) Own docker image, with custom password 2) Ge
 
          podman run -d --name oracle -p 49160:22 -p 8080:8080 -p 1521:1521 araczkowski/oracle-apex-ords    
          
-3. Connect database with the following settings:
+3. Connect to Oracle VM to check the ip (password: secret):
+
+         `ssh root@localhost -p 49160`
+         
+4. Run ip a command:
+
+        `ip a`
+
+Connect database with the following settings:
 
         hostname: localhost
         port: 1521
