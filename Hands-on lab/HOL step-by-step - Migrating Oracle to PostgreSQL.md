@@ -232,23 +232,21 @@ connect to postgres in a fast and convenient way without hard-coding connection 
         
 8. Let's connect to our newly created Azure database with psql client:
 
-        psql
-        
-        
- >**Note**: If you get an error (SELECT COUNT(*) FROM v$archived_log;) that there are no archive log run this command in oracle (ALTER SYSTEM ARCHIVE LOG CURRENT)
- 
+        psql 
  
  
 ## Exercise 3: Migrate the Database
 
-In this exercise, we will begin the migration of the database and the application. This includes migrating database objects, 
-the data, application code, and finally, deploying to Azure App Service.
+In this exercise, we will migrate the database and the application. This includes migrating database objects, 
+the data, application code, and finally, deploying to Azure App Service. For the data migration two different tools will be used:
+ora2pg for the offline migration and Azure Database Migration Service (link) for the online one.
 
-### Task 1: Migrate the basic database table schema using ora2pg
+### Task 1: (Schema & Offline Data) Migration using ora2pg
 
-In this task, we will migrate the database table schema, using ora2pg and psql, which is a command-line utility that makes it easy to run SQL files against the database.
+In this task, we will migrate the database schema and data, previously loaded to LabVM, using a import_all.sh script provided by ora2pg.
 
-1. Exercise 3 covered planning and assessment steps.  To start the database migration, DDL statements must be created for all valid Oracle objects.
+![Deploy to Postgres](/Media/migration.gif "Automatic migration using import_all.sh script")
+
 
  
  
