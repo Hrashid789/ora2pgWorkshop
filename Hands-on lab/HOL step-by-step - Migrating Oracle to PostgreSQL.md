@@ -63,11 +63,11 @@ There are two ways of doing this 1) Own docker image, with custom password 2) Ge
          
 3. Connect to Oracle VM to check the ip (password: secret):
 
-         `ssh root@localhost -p 49160`
+         ssh root@localhost -p 49160
          
-4. Run ip a command:
+4. Check IP address of Oracle VM:
 
-        `ip a`
+        ip a
         
 ![Checking ip of Oracle VM.](/Media/OracleIP.png "IPA")
 
