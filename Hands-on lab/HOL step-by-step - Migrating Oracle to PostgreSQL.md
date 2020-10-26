@@ -35,33 +35,19 @@
 [Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
 
 1. Connect to your Lab VM. 
-Setting up ora2pg:
+
+2. Switch to root user:
 
        sudo -i
-2. From root user run the following commands:
+3. From root user run the following commands:
 
-        yum update -y
-        yum install docker -y
+        dnf update -y
+        dnf install podman -y
 
-        systemctl start docker
-        systemctl status docker
-
-         docker pull georgmoser/ora2pg-docker
+        podman pull georgmoser/ora2pg-docker
 
         mkdir /data
-      > **Note**: You may receive an error "Installation of docker fails on CentOS 8 with Error – package containerd.io-1.2.10-3.2.el7.x86_64 is excluded" to overcome that you will need to run the below command:
-              
-               yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
 
-3. Get inside container:
-
-        docker run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
-
-        ora2pg --version
-
-        apt-get update -y
-
-        apt-get install vim
         
 ### Task 2: Download oracle image
 [Download Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
@@ -70,10 +56,10 @@ There are two ways of doing this 1) Own docker image, with custom password 2) Ge
 
 1. Installation:
 
-        docker pull araczkowski/oracle-apex-ords
+        podman pull araczkowski/oracle-apex-ords
 2. Run the container based on prebuild image from docker with 8080, 1521, 22 ports opened:
 
-         docker run -d --name <own-container-name> -p 49160:22 -p 8080:8080 -p 1521:1521 araczkowski/oracle-apex-ords    
+         podman run -d --name oracle -p 49160:22 -p 8080:8080 -p 1521:1521 araczkowski/oracle-apex-ords    
          
 3. Connect database with the following settings:
 
