@@ -8,7 +8,6 @@
     - [Task 1: Create Azure Resources](#task-1-create-azure-resources)
     - [Task 2: Configure the PostgreSQL server instance](#task-2-configure-the-postgresql-server-instance)
     - [Task 3: Install pgAdmin](#task-3-install-pgadmin)
-    - [Task 4: Install ora2pg](#task-4-install-ora2pg)
     - [Task 5: Prepare the PostgreSQL instance](#task-5-prepare-the-postgresql-instance)
     - [Task 6: Create an ora2pg project structure](#task-6-create-an-ora2pg-project-structure)
     - [Task 7: Create a migration report](#task-7-create-a-migration-report) 
@@ -56,6 +55,8 @@
 
         ora2pg --project_base /data --init_project myproject
         
+6. Log out from the container (Ctrl+d)
+        
 
         
 ### Task 2: Setup Oracle
@@ -95,6 +96,8 @@ Connect database with the following settings:
 ![Changing Oracle DSN.](/Media/OracleConnection.png "Changing Oracle DSN")
 
 6. Check if you are able to connect to Oracle database from ora2pg tool:
+
+        podman run -it --privileged -v /data:/data georgmoser/ora2pg-docker ora2pg -c /data/myproject/config/ora2pg.conf -t SHOW_VERSION
 
 ![Test Connection.](/Media/OracleConnectTest.png "Test connection")       
         
@@ -176,67 +179,7 @@ PgAdmin greatly simplifies database administration and configuration tasks by pr
 
 5. PgAdmin will prompt you to set a password to govern access to database credentials. Enter a password. Confirm your choice. For now, our configuration of pgAdmin is complete.
 
-### Task 4: Install ora2pg
 
-**Ora2pg** is the tool we will use to migrate database objects and data. Microsoft's Data Migration Team has greatly simplified the process of obtaining this tool by providing the **installora2pg.ps1** script. You can download using the link below:
-
- **Download**: <https://github.com/microsoft/DataMigrationTeam/blob/master/IP%20and%20Scripts/PostgreSQL%20Migration%20and%20Assessment%20Tools/installora2pg.ps1>.
-
-1. Copy Microsoft's script to the `C:\handsonlab\MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL\Hands-on lab\lab-files\starter-project\Postgre Scripts` location.
-
-2. Navigate to the location mentioned above and right-click `installora2pg.ps1`. Then, select **Run with PowerShell**.
-
-    ![Screenshot to show process to install ora2pg.](/Media/migrate25.png "Installing ora2pg")
-
-3. Install the ora2pg utility dependencies.
-
-   - Install Perl. It will take five minutes.
-   - Install the Oracle client library and SDK. To do this, you will first need to navigate to [Oracle Downloads](https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html). Then, scroll to **Version 12.2.X**. Select the installer for the **Basic Package**.
-   - Download the zip file.
-
-    ![Screenshot to show downloading the basic package.](/Media/migrate26.PNG "Basic package download")
-
-4. On the same Oracle link as above under the **version** section, locate the **SDK Package** installer under the **Development and Runtime - optional packages** section. Keep the zipped file in the Downloads directory.
-
-    ![Screenshot to show the SDK Package download.](/Media/migrate27.PNG "SDK package download")
-
-5. Navigate to the directory where the zipped instant client packages reside.
-
-    - For the basic package, right-click it, and select **Extract All...**.
-    - When prompted to choose the destination directory, navigate to the `C:\` location.
-    - Select **Extract**.
-    - Repeat this process for the zipped SDK.
-
-    ![Screenshot to show the process of installing client and SDK Packages.](/Media/migrate28.PNG "Client and SDK package downloads")
-
-6. Return to the PowerShell script.
-
-    - Press any key to terminate the script's execution.
-    - Launch the script once more.
-    - If the previous steps were successful, the script should be able to locate **oci.dll** under `C:\instantclient_12_2\oci.dll`.
-
-7. Once ora2pg installs, you will need to configure PATH variables.
-
-    - Search for **View advanced system settings** in Windows.
-    - Select the result, and the **System Properties** dialog box should open.
-    - By default, the **Advanced** tab should be showing, but if not, navigate to it.
-    - Then, select **Environment Variables...**.
-
-    ![Screenshot showing process to enter environment labels.](/Media/migrate29.png "Environment Variables selected")
-
-8. Under **System variables**, select **Path**. Select **Edit...**.
-
-    ![Screenshot to show editing the path variables.](/Media/migrate30.png "Selecting the PATH variables")
-
-9. The **Edit environment variable** box should be displaying.
-
-    - Select **New**.
-    - Enter **C:\instantclient_12_2**.
-    - Repeat this process, but enter **%%PATH%%** instead.
-
-    ![Screenshot showing path variable configuration.](/Meida/migrate31.png "Path variable configuration")
-    
-    
 ### Task 5: Prepare the PostgreSQL instance
 
 In this task, we will create the vi file in the linux server, create a PostgreSQL database and download the HR DDL scripts
