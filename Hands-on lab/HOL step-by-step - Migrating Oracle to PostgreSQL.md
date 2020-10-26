@@ -30,6 +30,7 @@
 ## Exercise 1: Setup Oracle 11g Express Edition
 
 ### Task 1: Setup ora2pg
+![Setup ora2pg](/Media/SetupOra2pg.gif "Setup Ora2pg") 
 
 [ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
 
@@ -51,7 +52,7 @@
 
         podman run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
         
-5. Create a migration project:
+5. **Ora2pg** allows database objects to be exported in multiple files so that is simple to organize and review changes. This command will create the project structure that will make it easy to do this: 
 
         ora2pg --project_base /data --init_project myproject
         
@@ -61,6 +62,7 @@
         
 ### Task 2: Setup Oracle
 ![Setup Oracle](/Media/Setup-Oracle.gif "Setup Oracle") 
+
 [Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
 
 There are two ways of doing this 1) Own docker image, with custom password 2) Get the prebuilt image from docker hub. In this lab, we will use the option 2.
@@ -108,7 +110,37 @@ Connect database with the following settings:
         
 
 
+## Exercise 2: Export Oracle schema and data to VM
+Ora2pg provides a script that allows you to export database schema in one simple step. The script was generated into your migration
+project.
+1. From your test VM run ora2pg container:
         
+        podman run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
+        
+2. Navigate to your project:
+        
+        cd /data/myproject/
+        
+3. When you list the content of the directory you will see export_schema.sh. Let's run the script:
+
+        ./export_schema.sh
+        
+4. When schema export will finish ora2pg will display a command to migrate data. Just copy and paste it to the terminal:
+
+        ora2pg -t COPY -o data.sql -b ./data -c ./config/ora2pg.conf
+        
+ You should see the following:
+ 
+ ![Data Export.](/Media/DataExport.png "Data Export")         
+
+5. Exit the container, for instance by using Ctrl+d shortcut.
+
+6. /data/myproject directory contains now both - the migrated schema and data downloaded from Oracle and is ready to be 
+deployed on Postgres.
+
+![migrated Project.](/Media/migratedProject.png "Migrated Project")  
+ 
+![Data Export.](/Media/countriesData.png "Data Export")  
 
 ## Exercise 2: Prepare to Migrate the Oracle database to PostgreSQL
 
@@ -160,27 +192,6 @@ In this task, we will be modifying the PostgreSQL instance to fit our needs.
 
     >**Note**: Do not use this type of rule for databases with sensitive data or in a production environment. You are allowing access from any IP address.
 
-### Task 3: Install pgAdmin
-
-PgAdmin greatly simplifies database administration and configuration tasks by providing an intuitive GUI. Hence, we will be using it to create a new application user and test the migration.
-
-1. You will need to navigate to <https://www.pgadmin.org/download/pgadmin-4-windows/> to obtain the latest version of pgAdmin 4, which, at the time of writing, is **v4.22**. Select the link to the installer, as shown below.
-
-    ![The screenshot shows the correct version of the pgAdmin utility to be installed.](/Media/migrate22.PNG "pgAdmin 4 v4.22")
-
-2. Download the **pgadmin4-4.22-x86.exe** file, **not** the one with the **.asc** extension.
-
-    ![Screenshot shows the correct installer to be used.](/Media/migrate23.png "pgAdmin version to be installed, pgadmin4-4.22-x86.exe")
-
-3. Once the installer launches, accept all defaults. Complete the installation steps.
-
-4. The pgAdmin utility will open automatically in the browser. To open manually, use the Windows Search utility. Type `pgAdmin`.
-
-   ![The screenshot shows pgAdmin in the Windows Search text box.](/Media/migrate24.png "Find pgAdmin manually in Windows Search bar")
-
-5. PgAdmin will prompt you to set a password to govern access to database credentials. Enter a password. Confirm your choice. For now, our configuration of pgAdmin is complete.
-
-
 ### Task 5: Prepare the PostgreSQL instance
 
 In this task, we will create the vi file in the linux server, create a PostgreSQL database and download the HR DDL scripts
@@ -212,9 +223,7 @@ In this task, we will create the vi file in the linux server, create a PostgreSQ
         
  >**Note**: If you get an error (SELECT COUNT(*) FROM v$archived_log;) that there are no archive log run this command in oracle (ALTER SYSTEM ARCHIVE LOG CURRENT)
  
- ### Task 6: Create an ora2pg project structure
  
- **Ora2pg** allows database objects to be exported in multiple files so that is simple to organize and review changes. In this task, you will create the project structure that will make it easy to do this.  
  
 ### Task 7: Create a migration report
 
