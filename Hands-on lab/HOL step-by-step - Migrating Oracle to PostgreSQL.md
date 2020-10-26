@@ -30,7 +30,7 @@
   - Trial subscriptions will not work.
 ## Exercise 1: Setup Oracle 11g Express Edition
 
-### Task 1: Download ora2pg image
+### Task 1: Setup ora2pg
 
 [ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
 
@@ -50,7 +50,7 @@
         
 4. Get inside container:
 
-        docker run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
+        podman run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
         
 5. Create a migration project:
 
