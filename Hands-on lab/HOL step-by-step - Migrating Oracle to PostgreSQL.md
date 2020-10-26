@@ -34,7 +34,8 @@
 
 [Download ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
 
-1. Setting up ora2pg:
+1. Connect to your Lab VM. 
+Setting up ora2pg:
 
        sudo -i
 2. From root user run the following commands:
