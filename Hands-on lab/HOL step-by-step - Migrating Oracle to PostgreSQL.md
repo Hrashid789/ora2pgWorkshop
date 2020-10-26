@@ -60,6 +60,7 @@
 
         
 ### Task 2: Setup Oracle
+![Setup Oracle](/Media/Setup-Oracle.gif "Setup Oracle") 
 [Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
 
 There are two ways of doing this 1) Own docker image, with custom password 2) Get the prebuilt image from docker hub. In this lab, we will use the option 2.
