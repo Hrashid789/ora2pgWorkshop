@@ -192,36 +192,69 @@ In this task, we will be modifying the PostgreSQL instance to fit our needs.
 
     >**Note**: Do not use this type of rule for databases with sensitive data or in a production environment. You are allowing access from any IP address.
 
-### Task 5: Prepare the PostgreSQL instance
+### Task 5: Prepare the file with libpq Environment Variables
 
-In this task, we will create the vi file in the linux server, create a PostgreSQL database and download the HR DDL scripts
+In this task, we will create a file in our linux VM containing [environment variables] (https://www.postgresql.org/docs/current/libpq-envars.html) that will be used to select 
+default connection parameter values to PostgreSQL PaaS instance. These are useful to be able to 
+connect to postgres in a fast and convenient way without hard-coding connection string.
 
-1. Create a new file
+1. Go to the "Connection Strings" tab on the left hand side of the Azure Portal and copy psql connection string:
+
+![Connection string](/Media/connectionString.png "Connection String")
+
+2. From a terminal connect to Azure VM
+
+3. Switch to root user:
+        
+        sudo -i
+        
+![Exporting libpq variables](/Media/exportingVariables.gif "Exporting libpq variables")
+
+4. Create a new file
 
         vi .pg_azure
 
-2. Add the following parameters.
+5. Add the following parameters.
 
-        export PGDATABASE=ORA2PG
+        export PGDATABASE=ora2pg
         export PGHOST=HOSTNAME.postgres.database.azure.com
-        export PGUSER=user@hostname
-        export PGPASSWORD=password
-        export PGSSLMODE=require.
+        export PGUSER=your_user@hostname
+        export PGPASSWORD=your_password
+        export PGSSLMODE=require
 
-3. ![Download the HR DDL scripts](https://www.oracle.com/technetwork/developer-tools/datamodeler/hr-30-ddl-246035.zip)
+6. Read the content of the file in the current session:
 
-4. Create Database
+        source .pg_azure
+        
+7. Create a new database in the postgres instance that will be our migration database:
 
-        psql postgres
         createdb ora2pg
+        
+8. Let's connect to our newly created Azure database with psql client:
+
         psql
-        psql -f schema/tables/table.sql
-        psql -f schema/sequences/sequence.sql
-        psql -f schema/views/view.sql 
-        psql -f schema/procedures/procedure.sql
-        psql -f schema/triggers/trigger.sql
+        
         
  >**Note**: If you get an error (SELECT COUNT(*) FROM v$archived_log;) that there are no archive log run this command in oracle (ALTER SYSTEM ARCHIVE LOG CURRENT)
+ 
+ 
+ 
+## Exercise 3: Migrate the Database
+
+In this exercise, we will begin the migration of the database and the application. This includes migrating database objects, 
+the data, application code, and finally, deploying to Azure App Service.
+
+### Task 1: Migrate the basic database table schema using ora2pg
+
+In this task, we will migrate the database table schema, using ora2pg and psql, which is a command-line utility that makes it easy to run SQL files against the database.
+
+1. Exercise 3 covered planning and assessment steps.  To start the database migration, DDL statements must be created for all valid Oracle objects.
+
+ 
+ 
+ 
+ 
+ 
  
  
  
@@ -229,15 +262,6 @@ In this task, we will create the vi file in the linux server, create a PostgreSQ
 
 The migration report tells us the "man-hours" required to fully migrate to our application and components. The report will provide the user with a relative complexity value. In this task, we will retrieve the migration report for our migration.
 
-## Exercise 3: Migrate the Database
-
-In this exercise, we will begin the migration of the database and the application. This includes migrating database objects, the data, application code, and finally, deploying to Azure App Service.
-
-### Task 1: Migrate the basic database table schema using ora2pg
-
-In this task, we will migrate the database table schema, using ora2pg and psql, which is a command-line utility that makes it easy to run SQL files against the database.
-
-1. Exercise 3 covered planning and assessment steps.  To start the database migration, DDL statements must be created for all valid Oracle objects.
 
     >**Note**: In almost all migration scenarios, it is advised that table, index, and constraint schemas are kept in separate files. For data migration performance reasons, constraints should be applied to the target database only after tables are created and data copied. To enable this feature, open **config\ora2pg.conf** file. Set **FILE_PER_CONSTRAINT**, **FILE_PER_INDEX**, **FILE_PER_FKEYS**, and **FILE_PER_TABLE** to 1.
 

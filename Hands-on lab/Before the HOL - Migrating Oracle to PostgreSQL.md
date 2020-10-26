@@ -5,8 +5,8 @@
   - [Before the hands-on lab](#before-the-hands-on-lab)
     - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
     - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
-    - [Task 3: Register the Microsoft DataMigration resource provider](#task-3-register-the-microsoft-datamigration-resource-provider)
-    - [Task 4  (Migrate to PostgreSQL): Create Azure Database Migration Service for an Oracle to PostgreSQL Migration](#task-4-migrate-to-postgresql-create-azure-database-migration-service-for-an-oracle-to-postgresql-migration)
+    - [Task 4: Register the Microsoft DataMigration resource provider](#task-3-register-the-microsoft-datamigration-resource-provider)
+    - [Task 5  (Migrate to PostgreSQL): Create Azure Database Migration Service for an Oracle to PostgreSQL Migration](#task-4-migrate-to-postgresql-create-azure-database-migration-service-for-an-oracle-to-postgresql-migration)
 
 # Migrating Oracle to Azure SQL and PostgreSQL before the hands-on lab setup guide
 
@@ -89,12 +89,22 @@ In this task, you will provision a virtual machine (VM) in Azure. The VM image u
 
     ![The Review + create tab is displayed, with a Validation passed message.](/Media/migrate8.jpg "Create a virtual machine Review + create tab")
 
-6. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next task while waiting for the lab VM to provision.
+6. It may take 10+ minutes for the virtual machine to complete provisioning. You can move on to the next tasks while waiting for the lab VM to provision.
 
 
+### Task 3: Install PostgreSQL binaries
+
+In this task, you will install postgres binaries to be able to connect to PostgreSQL PaaS service and deploy migrated code and load data.
+
+1. Connect to your Azure VM
+
+2. Switch to root and install postgres binaries:
+
+        dnf module enable postgresql:12
+        dnf install postgresql
 
 
-### Task 3: Register the Microsoft DataMigration resource provider
+### Task 4: Register the Microsoft DataMigration resource provider
 
 In this task, you will register the `Microsoft.DataMigration` resource provider with your subscription in Azure.
 
@@ -106,7 +116,7 @@ In this task, you will register the `Microsoft.DataMigration` resource provider 
 
     ![The Subscription blade is displayed, with Resource providers selected and highlighted under Settings. On the Resource providers blade, migration is entered into the filter box, and Register is highlighted next to Microsoft.DataMigration.](/Media/migrate10.png "Resource provider registration")
 
-### Task 4: (Migrate to PostgreSQL): Create Azure Database Migration Service for an Oracle to PostgreSQL Migration
+### Task 5: (Migrate to PostgreSQL): Create Azure Database Migration Service for an Oracle to PostgreSQL Migration
 
 In this task, you will provision an instance of the Azure Database Migration Service (DMS) for use with an *online* Oracle to PostgreSQL migration. This requires that we implement the **Premium** tier.
 
