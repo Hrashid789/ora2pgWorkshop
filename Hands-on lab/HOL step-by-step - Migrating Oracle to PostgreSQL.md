@@ -68,6 +68,8 @@ There are two ways of doing this 1) Own docker image, with custom password 2) Ge
 4. Run ip a command:
 
         `ip a`
+        
+        ![Checking ip of Oracle VM.](/Media/OracleIP.png "IPA")
 
 Connect database with the following settings:
 
