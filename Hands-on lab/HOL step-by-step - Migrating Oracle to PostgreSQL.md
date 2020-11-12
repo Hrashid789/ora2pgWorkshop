@@ -90,7 +90,7 @@ There are two ways of doing this 1) Own docker image, with custom password 2) Ge
         
 ![Checking ip of Oracle VM.](/Media/OracleIP.png "ip a")
 
-Connect database with the following settings:
+Connection details for your Oracle instance will look as follows:
 
         hostname: <Output of ip a command>
         port: 1521
@@ -98,11 +98,14 @@ Connect database with the following settings:
         username: system
         password: secret
         
-5. Log out of the Oracle VM and change ORACLE_DSN in ora2pg.conf file:
+5. Log out of the Oracle VM and change ORACLE_DSN in ora2pg.conf file accordingly. Then find the line that begins with SCHEMA and change the string "CHANGE_THIS_SCHEMA_NAME" to HR:
 
         vi /data/myproject/config/ora2pg.conf
         
 ![Changing Oracle DSN.](/Media/OracleConnection.png "Changing Oracle DSN")
+![Changing schema name to HR](/Media/schemaname.PNG "Changing Schema name")
+
+Save changed configuration file.
 
 6. Check if you are able to connect to Oracle database from ora2pg tool:
 
