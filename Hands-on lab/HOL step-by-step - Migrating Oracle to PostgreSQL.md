@@ -52,6 +52,12 @@
 
         podman run -it --privileged -v /data:/data georgmoser/ora2pg-docker /bin/bash
         
+You will see that command prompt has changed. Now it looks similarly to this one:
+
+        root@d36721adb825:/#
+        
+It consists of user name (root), at sign (@) and alphanumeric string which identifies the container that you are running (container id).  
+        
 5. **Ora2pg** allows database objects to be exported in multiple files so that is simple to organize and review changes. This command will create the project structure that will make it easy to do this: 
 
         ora2pg --project_base /data --init_project myproject
@@ -61,7 +67,7 @@
 
         
 ### Task 2: Setup Oracle
-![Setup Oracle](/Media/Setup-Oracle.gif "Setup Oracle") 
+![Setup Oracle](/Media/ex01_Task02_SetupOracle.gif "Setup Oracle") 
 
 [Oracle image](https://hub.docker.com/r/araczkowski/oracle-apex-ords)
 
