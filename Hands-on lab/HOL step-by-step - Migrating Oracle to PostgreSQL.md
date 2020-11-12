@@ -30,7 +30,7 @@
 ## Exercise 1: Setup Oracle 11g Express Edition
 
 ### Task 1: Setup ora2pg
-![Setup ora2pg](/Media/SetupOra2pg.gif "Setup Ora2pg") 
+![Setup ora2pg](/Media/ex01_Task01_SetupOra2pg.gif "Setup Ora2pg") 
 
 [ora2pg image](https://hub.docker.com/r/georgmoser/ora2pg-docker)
 
@@ -147,6 +147,7 @@ deployed on Postgres.
 In this exercise, you will configure Azure Database for PostgreSQL and Azure App Service, install and configure ora2pg and pgAdmin, and create an assessment report that outlines the difficulty of the migration process.
 
 ### Task 1: Create Azure Resources
+![Create Postgres PaaS](/Media/ex02-Task01Create%20Azure%20Resources.gif "Create Postgres PaaS") 
 
 We need to create a PostgreSQL instance and an App Service to host our application. Visual Studio integrates well with Microsoft Azure, simplifying application deployment.
 
