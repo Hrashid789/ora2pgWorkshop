@@ -156,56 +156,32 @@ deployed on Postgres.
  
 ![Data Export.](/Media/countriesData.png "Data Export")  
 
-## Exercise 2: Prepare to Migrate the Oracle database to PostgreSQL
+## Exercise 3: Prepare to Migrate the Oracle database to PostgreSQL
 
-In this exercise, you will configure Azure Database for PostgreSQL and Azure App Service, install and configure ora2pg and pgAdmin, and create an assessment report that outlines the difficulty of the migration process.
+In this exercise, you will create a new PaaS service - Azure Database for PostgreSQL.
 
 ### Task 1: Create Azure Resources
 ![Create Postgres PaaS](/Media/ex02-Task01Create%20Azure%20Resources.gif "Create Postgres PaaS") 
-
-We need to create a PostgreSQL instance and an App Service to host our application. Visual Studio integrates well with Microsoft Azure, simplifying application deployment.
 
 1. Just as you configured resources in **Before the HOL**, you will need to navigate to the **New** page accessed by selecting **+ Create a resource**. Then, navigate to **Databases** under the **Azure Marketplace** section. Select **Azure Database for PostgreSQL**.
 
     ![Navigating Azure Marketplace to Azure Database for PostgreSQL, which has been highlighted.](/Media/migrate15.png "Azure Database for PostgreSQL")
 
-2. There are two deployment options: **Single Server** and **Hyperscale (Citus)**. Single Server is best suited for traditional transactional workloads whereas Hyperscale is best suited for ultra-high-performance, multi-tenant applications. For our simple application, we will be utilizing a single server for our database.
+2. There are many deployment options including: **Single Server** and **Hyperscale (Citus)**. Single Server is best suited for traditional transactional workloads whereas Hyperscale is best suited for ultra-high-performance, multi-tenant applications. For our simple application, we will be utilizing a single server for our database.
 
     ![Screenshot of choosing the correct single server option.](/Media/migrate16.PNG "Single server")
 
 3. Create a new Azure Database for PostgreSQL resource. Use the following configuration values:
 
    - **Resource group**: (same as Lab VM)
-   - **Server name**: Enter a unique server name.
+   - **Server name**: Enter a unique server name (we use **demopg**)
    - **Version**: 11
-   - **Administrator username**: solldba
+   - **Administrator username**: pgdba
    - **Password**: (secure password)
 
     Select **Review + create** button once you are ready.
 
-    ![Configuring the instance details.](/Media/migrate17.PNG "Project Details window with pertinent details")
-
-### Task 2: Configure the PostgreSQL server instance
-
-In this task, we will be modifying the PostgreSQL instance to fit our needs.
-
-1. Storage Auto-growth is a feature in which Azure will add more storage automatically when required. We do not need it for our purposes so we will need to disable it. To do this, locate the PostgreSQL instance you created. Under the **Settings** tab, select **Pricing tier**.
-
-    ![Changing the pricing tier in PostgreSQL instance.](/Media/migrate18.PNG "Pricing tier")
-
-2. Find the **Storage Auto-growth** switch, and disable the feature. Select **OK** at the bottom of the page to save your change.
-
-    ![Disabling storage auto-growth feature.](/Media/migrate19.PNG  "Storage auto-growth toggled to no")
-
-3. Now, we need to implement firewall rules for the PostgreSQL database so we can access it. Locate the **Connection security** selector under the **Settings** tab.
-
-    ![Configuring the Connection Security settings for the database.](/Media/migrate20.png "Connection security highlighted")
-
-4. We will add an access rule. Since we are storing insecure test data, we can open the 0.0.0.0 to 255.255.255.255 range (all IPv4 addresses). Azure makes this option available. Press the **Save** button at the top of the page once you are ready.
-
-    ![Adding IP addresses as an Access Rule](/Media/migrate21.png "IP Addresses highlighted")
-
-    >**Note**: Do not use this type of rule for databases with sensitive data or in a production environment. You are allowing access from any IP address.
+    ![Configuring the instance details.](/Media/pgpaascreate.PNG "Project Details window with pertinent details")
 
 ### Task 5: Prepare the file with libpq Environment Variables
 
