@@ -112,14 +112,19 @@ Save changed configuration file.
         podman run -it --privileged -v /data:/data georgmoser/ora2pg-docker ora2pg -c /data/myproject/config/ora2pg.conf -t SHOW_VERSION
 
 ![Test Connection.](/Media/OracleConnectTest.png "Test connection")       
+
+If ora2pg displays the line with Oracle version: "Oracle Database 11g Express Edition Release 11.2.0.2.0" despite the warnings you might
+see above it means that ora2pg is well configured and you are ready to start the migration.
         
-7. Optionally you might want to change the password for system user since the current one will expire in 7 days:
+7. Optionally you might want to change the password for system user since the current one will expire in 7 days. That will
+also stop the warning about password expiration from being displayed at each call:
 
         alter user system identified by secret;
         
 
 
 ## Exercise 2: Export Oracle schema and data to VM
+![Export Oracle schema and data to VM](/Media/ex02_ExportSchemaAndData.gif "Export Oracle schema and data to VM") 
 Ora2pg provides a script that allows you to export database schema in one simple step. The script was generated into your migration
 project.
 1. From your test VM run ora2pg container:
