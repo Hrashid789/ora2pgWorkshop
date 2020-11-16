@@ -5,7 +5,8 @@
   - [Before the hands-on lab](#before-the-hands-on-lab)
     - [Task 1: Provision a resource group](#task-1-provision-a-resource-group)
     - [Task 2: Create lab virtual machine](#task-2-create-lab-virtual-machine)
-    - [Task 4: Register the Microsoft DataMigration resource provider](#task-3-register-the-microsoft-datamigration-resource-provider)
+    - [Task 3: Install PostgreSQL binaries](#task-3-install-postgresql-binaries)
+    - [Task 4: Register the Microsoft DataMigration resource provider](#task-4-register-the-microsoft-datamigration-resource-provider)
     - [Task 5  (Migrate to PostgreSQL): Create Azure Database Migration Service for an Oracle to PostgreSQL Migration](#task-4-migrate-to-postgresql-create-azure-database-migration-service-for-an-oracle-to-postgresql-migration)
 
 # Migrating Oracle to Azure SQL and PostgreSQL before the hands-on lab setup guide
