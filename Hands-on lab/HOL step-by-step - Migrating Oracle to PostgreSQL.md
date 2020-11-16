@@ -226,7 +226,7 @@ connect to postgres in a fast and convenient way without hard-coding connection 
         psql 
  
  
-## Exercise 3: Migrate the Database
+## Exercise 4: Migrate the Database
 
 All the data and schema are already on the LabVM. Now we need to deploy them to the previously created Postgres instance.
 
@@ -235,6 +235,62 @@ All the data and schema are already on the LabVM. Now we need to deploy them to 
 In this task, we will migrate the database schema and data, previously loaded to LabVM, using a import_all.sh script provided by ora2pg.
 
 ![Deploy to Postgres](/Media/ex04_import_to_postgres.gif "Automatic migration using import_all.sh script")
+
+1. Make sure that libpq variables, necessary to connect to postgres, are exported in current session:
+
+        source .pg_azure
+
+2. Navigate to the main project directory:
+
+        cd /data/myproject
+
+3. Run import_all.sh script with database name and username as the parameters:
+        
+        ./import_all.sh -d ora2pg -o pgdba@demopg
+        
+4. Answer NO for the first two questions, the user is created and the database was newly created so there is no need to drop it.
+
+        Would you like to create the owner of the database pgdba@demopg?
+        Would you like to create the database ora2pg?
+        
+5. Answer YES to all import questions till you see a question about importing synonyms. The test database that we use in this workshop contains
+synonyms to the objects that we haven't migrated so we should skip import of the synonyms:
+
+        Would you like to import TABLE from ./schema/tables/table.sql? [y/N/q]
+        Would you like to import VIEW from ./schema/views/view.sql? [y/N/q]
+        Would you like to import SEQUENCE from ./schema/sequences/sequence.sql? [y/N/q]
+        Would you like to import TRIGGER from ./schema/triggers/trigger.sql? [y/N/q]
+        Would you like to import PROCEDURE from ./schema/procedures/procedure.sql? [y/N/q]
+        
+6. (NO) Skip synonyms:
+
+        Would you like to import SYNONYM from ./schema/synonyms/synonym.sql? [y/N/q]
+        
+7. (NO) Skip also importing all the constaints before loading the data:
+
+        Would you like to process indexes and constraints before loading data? [y/N/q]
+        
+After loading the data the script will ask you again about the constraints.
+
+8. (YES) Load the data:
+
+        Would you like to import data from ./data/data.sql? [y/N/q]
+        
+9. (YES) Now we are safe to load the indexes and constraints:
+
+        Would you like to import indexes from ./schema/tables/INDEXES_table.sql? [y/N/q]
+        Would you like to import constraints from ./schema/tables/CONSTRAINTS_table.sql? [y/N/q]
+        Would you like to import foreign keys from ./schema/tables/FKEYS_table.sql? [y/N/q]
+        
+10. Connect to postgres and run VACUUM ANALYZE. Running this command is crucial after every data load and migration:
+
+        psql
+        VACUUM ANALYZE;
+        
+11. Your database was successfully migrated. Congratulations!
+        
+        
+        
 
 
  
