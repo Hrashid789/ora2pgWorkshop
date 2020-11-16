@@ -9,7 +9,6 @@
     - [Task 1: Create Azure Resources](#task-1-create-azure-resources)
     - [Task 2: Prepare the file with libpq Environment Variables](#task-2-prepare-the-file-with-libpq-environmenr-variables)
   - [Exercise 4: Migrate the Database](#exercise-4-migrate-the-database)
-    - [Task 1: (Schema & Offline Data) Migration using ora2pg](#task-1-schema-&-offline-data-migration-using-ora2pg)  
 
 # Migrating Oracle to PostgreSQL hands-on lab step-by-step
 
@@ -219,9 +218,6 @@ connect to postgres in a fast and convenient way without hard-coding connection 
 ## Exercise 4: Migrate the Database
 
 All the data and schema are already on the LabVM. Now we need to deploy them to the previously created Postgres instance.
-
-### Task 1: (Schema & Offline Data) Migration using ora2pg
-
 In this task, we will migrate the database schema and data, previously loaded to LabVM, using a import_all.sh script provided by ora2pg.
 
 ![Deploy to Postgres](/Media/ex04_import_to_postgres.gif "Automatic migration using import_all.sh script")
