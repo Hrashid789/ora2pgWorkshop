@@ -189,7 +189,7 @@ In this task, we will create a file in our linux VM containing [environment vari
 default connection parameter values to PostgreSQL PaaS instance. These are useful to be able to 
 connect to postgres in a fast and convenient way without hard-coding connection string.
 
-1. Go to the "Connection Strings" tab on the left hand side of the Azure Portal and copy psql connection string:
+1. Go to the "Connection Strings" tab on the left hand side of the Azure Portal and find psql connection string:
 
 ![Connection string](/Media/connectionString.png "Connection String")
 
@@ -228,15 +228,13 @@ connect to postgres in a fast and convenient way without hard-coding connection 
  
 ## Exercise 3: Migrate the Database
 
-In this exercise, we will migrate the database and the application. This includes migrating database objects, 
-the data, application code, and finally, deploying to Azure App Service. For the data migration two different tools will be used:
-ora2pg for the offline migration and Azure Database Migration Service (link) for the online one.
+All the data and schema are already on the LabVM. Now we need to deploy them to the previously created Postgres instance.
 
 ### Task 1: (Schema & Offline Data) Migration using ora2pg
 
 In this task, we will migrate the database schema and data, previously loaded to LabVM, using a import_all.sh script provided by ora2pg.
 
-![Deploy to Postgres](/Media/migration.gif "Automatic migration using import_all.sh script")
+![Deploy to Postgres](/Media/ex04_import_to_postgres.gif "Automatic migration using import_all.sh script")
 
 
  
@@ -245,15 +243,6 @@ In this task, we will migrate the database schema and data, previously loaded to
  
  
  
- 
- 
-### Task 7: Create a migration report
-
-The migration report tells us the "man-hours" required to fully migrate to our application and components. The report will provide the user with a relative complexity value. In this task, we will retrieve the migration report for our migration.
-
-
-    >**Note**: In almost all migration scenarios, it is advised that table, index, and constraint schemas are kept in separate files. For data migration performance reasons, constraints should be applied to the target database only after tables are created and data copied. To enable this feature, open **config\ora2pg.conf** file. Set **FILE_PER_CONSTRAINT**, **FILE_PER_INDEX**, **FILE_PER_FKEYS**, and **FILE_PER_TABLE** to 1.
-
 
 # Helpful Links:
 [Full Windows-based workshop](https://github.com/microsoft/MCW-Migrating-Oracle-to-Azure-SQL-and-PostgreSQL/blob/master/Hands-on%20lab/HOL%20step-by-step%20-%20Migrating%20Oracle%20to%20PostgreSQL.md#task-4-install-ora2pg)
