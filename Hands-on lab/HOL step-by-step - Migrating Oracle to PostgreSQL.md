@@ -183,7 +183,7 @@ In this exercise, you will create a new PaaS service - Azure Database for Postgr
 
     ![Configuring the instance details.](/Media/pgpaascreate.PNG "Project Details window with pertinent details")
 
-### Task 5: Prepare the file with libpq Environment Variables
+### Task 2: Prepare the file with libpq Environment Variables
 
 In this task, we will create a file in our linux VM containing [environment variables] (https://www.postgresql.org/docs/current/libpq-envars.html) that will be used to select 
 default connection parameter values to PostgreSQL PaaS instance. These are useful to be able to 
@@ -250,8 +250,8 @@ In this task, we will migrate the database schema and data, previously loaded to
         
 4. (NO) Answer NO for the first two questions, the user is created and the database was newly created so there is no need to drop it.
 
-        Would you like to create the owner of the database pgdba@demopg?
-        Would you like to create the database ora2pg?
+        Would you like to create the owner of the database pgdba@demopg? [y/N/q]
+        Would you like to create the database ora2pg? [y/N/q]
         
 5. (YES) Answer YES to all import questions till you see a question about importing synonyms. The test database that we use in this workshop contains
 synonyms to the objects that we haven't migrated so we should skip import of the synonyms:
